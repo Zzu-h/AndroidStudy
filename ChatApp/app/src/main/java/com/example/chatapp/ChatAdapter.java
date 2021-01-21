@@ -65,14 +65,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         holder.TextView_nickname.setText(chat.getNickname());
         holder.TextView_msg.setText(chat.getMsg());
 
-/*        if(chat.getNickname().equals(myNickname)){
+        if(chat.getNickname().equals(myNickname)){
             holder.TextView_nickname.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
             holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
         }
         else{
             holder.TextView_nickname.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-        }*/
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
