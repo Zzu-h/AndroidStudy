@@ -26,6 +26,7 @@
                     android:id="@+id/ImageView_Title"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
+                    fresco:placeholderImage="@drawable/ic_launcher_foreground"
                     />
                     <!--fresco:placeholderImage="@drawable/my_drawable"-->
                 <TextView
@@ -63,6 +64,4 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-    
-
 </LinearLayout>

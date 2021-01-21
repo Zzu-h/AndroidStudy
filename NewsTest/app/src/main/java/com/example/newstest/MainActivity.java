@@ -1,16 +1,15 @@
 package com.example.newstest;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.renderscript.Sampler;
-import android.util.Log;
-
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Header;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,8 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     RequestQueue queue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         getNews();
     }
-    public void getNews(){
+
+    public void getNews() {
 
         String Search = "강아지";
 
@@ -68,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         //textView.setText("Response is: "+ response.substring(0,500));
-                        Log.d("NEWS", response);
+                        // Log.d("NEWS", response);
 
                         try {
                             List<NewsData> newsList = new ArrayList<NewsData>();
                             JSONArray arrayArticles = new JSONObject(response).getJSONArray("items");
 
-                            for(int i = 0;i<arrayArticles.length();i++){
+                            for (int i = 0; i < arrayArticles.length(); i++) {
                                 JSONObject obj = arrayArticles.getJSONObject(i);
 
                                 NewsData news = new NewsData();
@@ -82,15 +81,31 @@ public class MainActivity extends AppCompatActivity {
                                 news.setTitle(obj.getString("title"));
                                 news.setUrlToImage(obj.getString("image"));
                                 news.setContent(obj.getString("description"));
+                                news.setLink(obj.getString("link"));
 
                                 newsList.add(news);
                             }
 
                             // specify an adapter (see also next example)
-                            mAdapter = new MyAdapter(newsList, MainActivity.this);
+                            mAdapter = new MyAdapter(newsList, MainActivity.this, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Object obj = v.getTag();
+                                    if(obj != null){
+                                        NewsData getNews = ((MyAdapter)mAdapter).getNewsData((int)v.getTag());
+                                        try {
+                                            Intent intent  = new Intent(MainActivity.this, NewsActivity.class);
+                                            intent.putExtra("getNews",getNews);
+                                            startActivity(intent);
+                                        }catch (Exception e){
+                                            e.getStackTrace();
+                                        }
+                                    }
+                                }
+                            });
                             recyclerView.setAdapter(mAdapter);
 
-                       } catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -99,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error.getMessage());
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
