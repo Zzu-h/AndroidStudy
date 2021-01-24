@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class TetrisUI {
     private int x_size = 10;
     private int y_size = 22;
-    private View tetris[][];
+    private TextView tetris[][];
 
     private LinearLayout LinearLayout_main;
     private GridLayout GridLayout_screen;
@@ -18,7 +18,7 @@ public class TetrisUI {
     private Context main_context;
 
     public TetrisUI(Context context, LinearLayout L) {
-        this.tetris = new View[this.y_size][this.x_size];
+        this.tetris = new TextView[this.y_size][this.x_size];
 
         LinearLayout_main = L;
         GridLayout_screen = L.findViewById(R.id.GridLayout_screen);
