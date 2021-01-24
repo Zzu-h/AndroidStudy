@@ -3,6 +3,9 @@ package com.example.chatapp;
 import java.io.Serializable;
 
 public class ChatData implements Serializable {
+    private String msg;
+    private String nickname;
+
     public String getMsg() {
         return msg;
     }
@@ -11,8 +14,6 @@ public class ChatData implements Serializable {
         this.msg = msg;
     }
 
-    private String msg;
-
     public String getNickname() {
         return nickname;
     }
@@ -20,7 +21,4 @@ public class ChatData implements Serializable {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-
-    private String nickname;
-
 }

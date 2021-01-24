@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
@@ -58,21 +59,15 @@ public class ChatActivity extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
 
-
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new ChatAdapter(chatList, ChatActivity.this, nick);
+        chatList = new ArrayList<>();
+        mAdapter = new ChatAdapter(chatList, nick);
         recyclerView.setAdapter(mAdapter);
         // Write a message to trnrhe database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("message");
-
-        ChatData chat = new ChatData();
-        chat.setMsg("HI");
-        chat.setNickname(nick);
-        myRef.setValue(chat);
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override

@@ -22,23 +22,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         // each data item is just a string in this case
         public TextView TextView_nickname;
         public TextView TextView_msg;
-        public LinearLayout layout;
-
 
         public MyViewHolder(LinearLayout v) {
             super(v);
             TextView_nickname = v.findViewById(R.id.TextView_nickname);
             TextView_msg = v.findViewById(R.id.TextView_msg);
-            layout = v;
-
-            layout.setClickable(true);
-            layout.setEnabled(true);
-            layout.setOnClickListener(onClickListener);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ChatAdapter(List<ChatData> myDataset, Context context, String myNickname) {
+    public ChatAdapter(List<ChatData> myDataset, String myNickname) {
         mDataset = myDataset;
         this.myNickname = myNickname;
     }
@@ -81,7 +74,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         return (mDataset == null) ? 0 : mDataset.size();
     }
 
-    public ChatData getNewsData(int position){return mDataset.get(position);}
     public void addChat(ChatData chat){
         mDataset.add((chat));
         notifyItemInserted(mDataset.size()-1); // 갱신용
