@@ -27,8 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    final String clientID = "YSVB6dv5XquMli6FMyb3";
-    final String clientPassword = "cFBxQ_EK93";
+    final String clientID = "";
+    final String clientPassword = "";
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
